@@ -9,7 +9,7 @@ on:
       version:
         description: 'Version tag to build'
         required: true
-        default: '1.0.0-stable'
+        default: 'v1.0.0-stable'
       
 jobs:
   deploy:
@@ -42,3 +42,4 @@ jobs:
         tag: ${{ github.event.inputs.version }}
         artifacts: "dist/SignalCrypt-${{ github.event.inputs.version }}.exe"
         body: ${{ contains(github.event.inputs.version, '-stable') && 'Stable Release' || 'Beta Release | Bugs might occur, please report them as an Issue.' }}
+        prerelease: ${{ or(contains(github.event.inputs.version, '-alpha'), contains(github.event.inputs.version, '-beta')) }}
